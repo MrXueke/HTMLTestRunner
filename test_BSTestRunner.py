@@ -4,7 +4,7 @@ import StringIO
 import sys
 import unittest
 
-import HTMLTestRunner
+import BSTestRunner
 
 # ----------------------------------------------------------------------
 
@@ -86,14 +86,14 @@ class SampleTestUnicode(SampleOutputTestBase):
 
 
 # ------------------------------------------------------------------------
-# This is the main test on HTMLTestRunner
+# This is the main test on BSTestRunner
 
-class Test_HTMLTestRunner(unittest.TestCase):
+class Test_BSTestRunner(unittest.TestCase):
 
     def test0(self):
         self.suite = unittest.TestSuite()
         buf = StringIO.StringIO()
-        runner = HTMLTestRunner.HTMLTestRunner(buf)
+        runner = BSTestRunner.BSTestRunner(buf)
         runner.run(self.suite)
         # didn't blow up? ok.
         self.assert_('</html>' in buf.getvalue())
@@ -115,7 +115,7 @@ class Test_HTMLTestRunner(unittest.TestCase):
         # Invoke TestRunner
         buf = StringIO.StringIO()
         #runner = unittest.TextTestRunner(buf)       #DEBUG: this is the unittest baseline
-        runner = HTMLTestRunner.HTMLTestRunner(
+        runner = BSTestRunner.BSTestRunner(
                     stream=buf,
                     title='<Demo Test>',
                     description='This demonstrates the report output by HTMLTestRunner.'
@@ -244,10 +244,9 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         argv = sys.argv
     else:
-        argv=['test_HTMLTestRunner.py', 'Test_HTMLTestRunner']
+        argv=['test_BSTestRunner.py', 'Test_BSTestRunner']
     unittest.main(argv=argv)
     # Testing HTMLTestRunner with HTMLTestRunner would work. But instead
     # we will use standard library's TextTestRunner to reduce the nesting
     # that may confuse people.
     #HTMLTestRunner.main(argv=argv)
-
