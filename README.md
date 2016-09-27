@@ -1,3 +1,7 @@
+## BSTestRunner is bootstrap3 version of HTMLTestRunner
+
+![report](report.png)
+
 ## How to use
 
 A TestRunner for use with the Python unit testing framework. It generates a HTML report to show the result at a glance.
@@ -7,8 +11,6 @@ The simplest way to use this is to invoke its main method. E.g.
 ```python
 import unittest
 import BSTestRunner
-
-... define your tests ...
 
 if __name__ == '__main__':
     BSTestRunner.main()
