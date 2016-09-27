@@ -26,7 +26,7 @@ def safe_str(obj):
         return unicode(obj).encode('unicode_escape')
 
 # ----------------------------------------------------------------------
-# Sample tests to drive the HTMLTestRunner
+# Sample tests to drive the BSTestRunner
 
 class SampleTest0(unittest.TestCase):
     """ A class that passes.
@@ -99,7 +99,7 @@ class Test_BSTestRunner(unittest.TestCase):
         self.assert_('</html>' in buf.getvalue())
 
     def test_main(self):
-        # Run HTMLTestRunner. Verify the HTML report.
+        # Run BSTestRunner. Verify the HTML report.
 
         # suite of TestCases
         self.suite = unittest.TestSuite()
@@ -118,7 +118,7 @@ class Test_BSTestRunner(unittest.TestCase):
         runner = BSTestRunner.BSTestRunner(
                     stream=buf,
                     title='<Demo Test>',
-                    description='This demonstrates the report output by HTMLTestRunner.'
+                    description='This demonstrates the report output by BSTestRunner.'
                     )
         runner.run(self.suite)
 
@@ -217,7 +217,7 @@ Total
         byte_output = buf.getvalue()
         # output the main test output for debugging & demo
         print byte_output
-        # HTMLTestRunner pumps UTF-8 output
+        # BSTestRunner pumps UTF-8 output
         output = byte_output.decode('utf-8')
         self._checkoutput(output,EXPECTED)
 
@@ -246,7 +246,7 @@ if __name__ == "__main__":
     else:
         argv=['test_BSTestRunner.py', 'Test_BSTestRunner']
     unittest.main(argv=argv)
-    # Testing HTMLTestRunner with HTMLTestRunner would work. But instead
+    # Testing BSTestRunner with BSTestRunner would work. But instead
     # we will use standard library's TextTestRunner to reduce the nesting
     # that may confuse people.
-    #HTMLTestRunner.main(argv=argv)
+    #BSTestRunner.main(argv=argv)

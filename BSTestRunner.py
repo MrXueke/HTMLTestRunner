@@ -4,23 +4,23 @@ A TestRunner for use with the Python unit testing framework. It generates a HTML
 The simplest way to use this is to invoke its main method. E.g.
 
     import unittest
-    import HTMLTestRunner
+    import BSTestRunner
 
     ... define your tests ...
 
     if __name__ == '__main__':
-        HTMLTestRunner.main()
+        BSTestRunner.main()
 
 
-For more customization options, instantiates a HTMLTestRunner object.
-HTMLTestRunner is a counterpart to unittest's TextTestRunner. E.g.
+For more customization options, instantiates a BSTestRunner object.
+BSTestRunner is a counterpart to unittest's TextTestRunner. E.g.
 
     # output to a file
     fp = file('my_report.html', 'wb')
-    runner = HTMLTestRunner.HTMLTestRunner(
+    runner = BSTestRunner.BSTestRunner(
                 stream=fp,
                 title='My unit test',
-                description='This demonstrates the report output by HTMLTestRunner.'
+                description='This demonstrates the report output by BSTestRunner.'
                 )
 
     # Use an external stylesheet.
@@ -62,7 +62,6 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-# URL: http://tungwaiyip.info/software/HTMLTestRunner.html
 
 __author__ = "Wai Yip Tung && Eason Han"
 __version__ = "0.8.4"
@@ -107,12 +106,12 @@ from xml.sax import saxutils
 # ------------------------------------------------------------------------
 # The redirectors below are used to capture output during testing. Output
 # sent to sys.stdout and sys.stderr are automatically captured. However
-# in some cases sys.stdout is already cached before HTMLTestRunner is
+# in some cases sys.stdout is already cached before BSTestRunner is
 # invoked (e.g. calling logging.basicConfig). In order to capture those
 # output, use the redirectors for the cached stream.
 #
 # e.g.
-#   >>> logging.basicConfig(stream=HTMLTestRunner.stdout_redirector)
+#   >>> logging.basicConfig(stream=BSTestRunner.stdout_redirector)
 #   >>>
 
 def to_unicode(s):
@@ -645,7 +644,7 @@ class BSTestRunner(Template_mixin):
 
     def generateReport(self, test, result):
         report_attrs = self.getReportAttributes(result)
-        generator = 'HTMLTestRunner %s' % __version__
+        generator = 'BSTestRunner %s' % __version__
         stylesheet = self._generate_stylesheet()
         heading = self._generate_heading(report_attrs)
         report = self._generate_report(result)
@@ -785,11 +784,11 @@ class TestProgram(unittest.TestProgram):
     class for command line parameters.
     """
     def runTests(self):
-        # Pick HTMLTestRunner as the default test runner.
+        # Pick BSTestRunner as the default test runner.
         # base class's testRunner parameter is not useful because it means
-        # we have to instantiate HTMLTestRunner before we know self.verbosity.
+        # we have to instantiate BSTestRunner before we know self.verbosity.
         if self.testRunner is None:
-            self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
+            self.testRunner = BSTestRunner(verbosity=self.verbosity)
         unittest.TestProgram.runTests(self)
 
 main = TestProgram
