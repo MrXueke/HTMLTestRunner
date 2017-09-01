@@ -30,6 +30,7 @@ BSTestRunner is a counterpart to unittest's TextTestRunner. E.g.
 
     # run the test
     runner.run(my_test_suite)
+    fp.close()
 
 
 ------------------------------------------------------------------------
