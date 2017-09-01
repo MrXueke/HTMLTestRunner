@@ -16,7 +16,8 @@ For more customization options, instantiates a BSTestRunner object.
 BSTestRunner is a counterpart to unittest's TextTestRunner. E.g.
 
     # output to a file
-    fp = file('my_report.html', 'wb')
+    file_path = 'result.html'
+    fp = open(file_path, 'wb')
     runner = BSTestRunner.BSTestRunner(
                 stream=fp,
                 title='My unit test',
@@ -25,7 +26,7 @@ BSTestRunner is a counterpart to unittest's TextTestRunner. E.g.
 
     # Use an external stylesheet.
     # See the Template_mixin class for more customizable options
-    runner.STYLESHEET_TMPL = '<link rel="stylesheet" href="my_stylesheet.css" type="text/css">'
+    #runner.STYLESHEET_TMPL = '<link rel="stylesheet" href="my_stylesheet.css" type="text/css">'
 
     # run the test
     runner.run(my_test_suite)
@@ -96,7 +97,7 @@ Version in 0.7.1
 # TODO: simplify javascript using ,ore than 1 class in the class attribute?
 
 import datetime
-import StringIO
+import io
 import sys
 import time
 import unittest
@@ -489,7 +490,7 @@ class _TestResult(TestResult):
 
     def __init__(self, verbosity=1):
         TestResult.__init__(self)
-        self.outputBuffer = StringIO.StringIO()
+        self.outputBuffer = io.StringIO()
         self.stdout0 = None
         self.stderr0 = None
         self.success_count = 0
@@ -601,7 +602,8 @@ class BSTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
+        # print >>sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
+        print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
         return result
 
 
@@ -612,7 +614,7 @@ class BSTestRunner(Template_mixin):
         classes = []
         for n,t,o,e in result_list:
             cls = t.__class__
-            if not rmap.has_key(cls):
+            if not cls in rmap:
                 rmap[cls] = []
                 classes.append(cls)
             rmap[cls].append((n,t,o,e))
@@ -738,13 +740,15 @@ class BSTestRunner(Template_mixin):
         if isinstance(o,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
-            uo = o.decode('latin-1')
+            # uo = o.decode('latin-1')
+            uo = o
         else:
             uo = o
         if isinstance(e,str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
-            ue = e.decode('latin-1')
+            # ue = e.decode('latin-1')
+            ue = e
         else:
             ue = e
 
