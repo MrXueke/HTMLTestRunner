@@ -264,7 +264,7 @@ function showClassDetail(cid, count) {
     for (var i = 0; i < count; i++) {
         tid = id_list[i];
         if (toHide) {
-            document.getElementById('div_'+tid).style.display = 'none'
+            /*document.getElementById('div_'+tid).style.display = 'none'*/
             document.getElementById(tid).className = 'hiddenRow';
         }
         else {
