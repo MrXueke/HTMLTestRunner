@@ -187,15 +187,15 @@ class Template_mixin(object):
     """
 
     STATUS = {
-    0: 'pass',
-    1: 'fail',
-    2: 'error',
+    0: '通过',
+    1: '不通过',
+    2: '错误',
     }
 
     DEFAULT_TITLE = 'Unit Test Report'
     DEFAULT_DESCRIPTION = ''
 
-    # ------------------------------------------------------------------------
+   # ------------------------------------------------------------------------
     # HTML Template
 
     HTML_TMPL = r"""<!DOCTYPE html>
@@ -392,19 +392,19 @@ function showOutput(id, name) {
 
     REPORT_TMPL = """
 <p id='show_detail_line'>
-<span class="label label-primary" onclick="showCase(0)">Summary</span>
-<span class="label label-danger" onclick="showCase(1)">Failed</span>
-<span class="label label-default" onclick="showCase(2)">All</span>
+<span class="label label-primary" onclick="showCase(0)">概要</span>
+<span class="label label-danger" onclick="showCase(1)">失败</span>
+<span class="label label-default" onclick="showCase(2)">所有</span>
 </p>
 <table id='result_table' class="table">
     <thead>
         <tr id='header_row'>
-            <th>Test Group/Test case</td>
-            <th>Count</td>
-            <th>Pass</td>
-            <th>Fail</td>
-            <th>Error</td>
-            <th>View</td>
+            <th>测试用例组/测试用例</td>
+            <th>总数</td>
+            <th>通过</td>
+            <th>不通过</td>
+            <th>错误</td>
+            <th>查看</td>
         </tr>
     </thead>
     <tbody>
@@ -412,7 +412,7 @@ function showOutput(id, name) {
     </tbody>
     <tfoot>
         <tr id='total_row'>
-            <td>Total</td>
+            <td>总计</td>
             <td>%(count)s</td>
             <td class="text text-success">%(Pass)s</td>
             <td class="text text-danger">%(fail)s</td>
@@ -430,7 +430,7 @@ function showOutput(id, name) {
     <td>%(Pass)s</td>
     <td>%(fail)s</td>
     <td>%(error)s</td>
-    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
+    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('%(cid)s',%(count)s)">查看详情</a></td>
 </tr>
 """ # variables: (style, desc, count, Pass, fail, error, cid)
 
@@ -631,17 +631,17 @@ class BSTestRunner(Template_mixin):
         startTime = str(self.startTime)[:19]
         duration = str(self.stopTime - self.startTime)
         status = []
-        if result.success_count: status.append('<span class="text text-success">Pass <strong>%s</strong></span>'    % result.success_count)
-        if result.failure_count: status.append('<span class="text text-danger">Failure <strong>%s</strong></span>' % result.failure_count)
-        if result.error_count:   status.append('<span class="text text-warning">Error <strong>%s</strong></span>'   % result.error_count  )
+        if result.success_count: status.append('<span class="text text-success">通过 <strong>%s</strong></span>'    % result.success_count)
+        if result.failure_count: status.append('<span class="text text-danger">不通过 <strong>%s</strong></span>' % result.failure_count)
+        if result.error_count:   status.append('<span class="text text-warning">错误 <strong>%s</strong></span>'   % result.error_count  )
         if status:
             status = ' '.join(status)
         else:
             status = 'none'
         return [
-            ('Start Time', startTime),
-            ('Duration', duration),
-            ('Status', status),
+            ('开始时间', startTime),
+            ('经过时间', duration),
+            ('结果状态', status),
         ]
 
 
@@ -804,3 +804,4 @@ main = TestProgram
 
 if __name__ == "__main__":
     main(module=None)
+
